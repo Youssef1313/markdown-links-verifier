@@ -1,10 +1,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 
-WORKDIR /app
+COPY . ./
 
-COPY / ./
+RUN dotnet publish ./src/MarkdownLinksVerifier.csproj -c Release -o out --no-self-contained
 
-ADD entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+# Build the runtime image
+FROM mcr.microsoft.com/dotnet/runtime:5.0
+COPY --from=build /out .
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT [ "dotnet", "/MarkdownLinksVerifier.dll" ]
