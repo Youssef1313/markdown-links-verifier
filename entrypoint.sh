@@ -1,6 +1,6 @@
 #!/bin/sh -l
 
-cd /app
+cd /app/src
 
 dotnet restore
 dotnet build
