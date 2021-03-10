@@ -1,9 +1,9 @@
-name: Test GH Action
+name: Dogfood
 on: push
 
 jobs:
-  build_and_test:
-    name: Test my action
+  validate_links:
+    name: Markdown links verifier
     runs-on: ubuntu-latest
 
     steps:
@@ -11,4 +11,4 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Run the private action
-      uses: ./
+      uses: Youssef1313/markdown-links-verifier@v0.0.1
