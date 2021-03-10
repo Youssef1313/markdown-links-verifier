@@ -1,0 +1,6 @@
+name: Markdown links verifier
+description: Verify links in your markdown files
+
+runs:
+  using: docker
+  image: Dockerfile
