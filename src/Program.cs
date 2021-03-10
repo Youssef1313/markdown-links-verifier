@@ -22,8 +22,8 @@ foreach (string file in Directory.EnumerateFiles(Directory.GetCurrentDirectory()
             Console.Error.WriteLine($"Invalid link: '{link.Url}' relative to '{directory}'.");
             hasErrors = true;
         }
-        Console.WriteLine();
     }
+    Console.WriteLine();
 }
 
 return hasErrors ? 1 : 0;
