@@ -1,0 +1,14 @@
+name: Test GH Action
+on: push
+
+jobs:
+  build_and_test:
+    name: Test my action
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v1
+
+    - name: Run the private action
+      uses: ./
