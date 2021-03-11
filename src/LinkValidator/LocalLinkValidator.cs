@@ -6,6 +6,7 @@ namespace MarkdownLinksVerifier.LinkValidator
     internal class LocalLinkValidator : ILinkValidator
     {
         private readonly string _baseDirectory;
+        private const char RootSymbol = '~';
 
         public LocalLinkValidator(string baseDirectory) => _baseDirectory = baseDirectory;
 
@@ -17,9 +18,10 @@ namespace MarkdownLinksVerifier.LinkValidator
                 return true;
             }
 
-            if (link.StartsWith("mailto:", StringComparison.OrdinalIgnoreCase))
+            if (link.StartsWith(RootSymbol) &&
+                (link[1] is '\\' or '/'))
             {
-                return true;
+                link = Path.Join(Directory.GetCurrentDirectory(), link[1..]);
             }
 
             // Temporary workaround for https://github.com/Youssef1313/markdown-links-verifier/issues/20
