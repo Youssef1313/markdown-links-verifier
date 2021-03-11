@@ -30,6 +30,8 @@ jobs:
         run: dotnet restore --locked-mode --packages ${{ github.workspace }}/.nuget/packages
       - name: Build
         run: dotnet msbuild -noLogo -m -p:Configuration=${{ matrix.configuration }} -bl:artifacts/log/build.binlog
+      - name: Test
+        run: dotnet test tests
       - name: Upload Results
         uses: actions/upload-artifact@v2.2.2
         with:
