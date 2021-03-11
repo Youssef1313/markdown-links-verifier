@@ -6,7 +6,7 @@ This is an undergoing work to create a GitHub Action for validating links in mar
 
 ## Get started
 
-To get started, create a markdown-links-verifier.yml under .github/workflows/ directory with the following contents:
+To get started, create a *markdown-links-verifier.yml* under *.github/workflows/* directory with the following contents:
 
 ```yml
 name: Markdown links verifier
