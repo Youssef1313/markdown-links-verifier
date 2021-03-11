@@ -24,3 +24,7 @@ jobs:
     - name: Validate links
       uses: Youssef1313/markdown-links-verifier@v0.0.3
 ```
+
+## Thanks
+
+Big thanks to [@jmarolf](https://github.com/jmarolf) for [dotnet-start](https://github.com/jmarolf/dotnet-start) which helped a lot!
