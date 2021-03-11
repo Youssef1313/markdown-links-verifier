@@ -6,7 +6,7 @@ using Markdig.Syntax.Inlines;
 using MarkdownLinksVerifier.LinkClassifier;
 using MarkdownLinksVerifier.LinkValidator;
 
-[assembly:CLSCompliant(true)]
+[assembly: CLSCompliant(true)]
 
 bool hasErrors = false;
 
