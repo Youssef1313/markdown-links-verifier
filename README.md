@@ -6,6 +6,9 @@ This is an undergoing work to create a GitHub Action for validating links in mar
 
 ## Get started
 
+[Valid](~/README.md).
+[Invalid](~/README2.md).
+
 To get started, create a *markdown-links-verifier.yml* under *.github/workflows/* directory with the following contents:
 
 ```yml
