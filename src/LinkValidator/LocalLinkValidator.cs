@@ -18,9 +18,10 @@ namespace MarkdownLinksVerifier.LinkValidator
                 return true;
             }
 
-            if (link.StartsWith(RootSymbol))
+            if (link.StartsWith(RootSymbol) &&
+                (link[1] is '\\' or '/'))
             {
-                link = Path.Combine(Directory.GetCurrentDirectory(), link[1..]);
+                link = Path.Join(Directory.GetCurrentDirectory(), link[1..]);
             }
 
             // Temporary workaround for https://github.com/Youssef1313/markdown-links-verifier/issues/20
