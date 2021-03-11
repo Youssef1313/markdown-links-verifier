@@ -1,0 +1,21 @@
+﻿root = true
+
+[*]
+indent_style = space
+insert_final_newline = true
+
+[*.{xml,csproj,props,targets}]
+indent_size = 2
+
+[*.cs]
+indent_size = 4
+tab_width = 4
+end_of_line = crlf
+
+dotnet_sort_system_directives_first = true
+
+# CA1801: Review unused parameters - already removed in NetAnalyzers 6 in favor of IDE0060
+dotnet_diagnostic.CA1801.severity = none
+
+# CA2007: Consider calling ConfigureAwait on the awaited task
+dotnet_diagnostic.CA2007.severity = none
