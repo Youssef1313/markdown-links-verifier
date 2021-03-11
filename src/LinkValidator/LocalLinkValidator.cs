@@ -4,11 +4,14 @@ namespace MarkdownLinksVerifier.LinkValidator
 {
     internal class LocalLinkValidator : ILinkValidator
     {
-        private string _baseDirectory;
+        private readonly string _baseDirectory;
 
         public LocalLinkValidator(string baseDirectory) => _baseDirectory = baseDirectory;
 
         public bool IsValid(string link)
-            => File.Exists(Path.GetRelativePath(relativeTo: _baseDirectory, path: link));
+        {
+            var path = Path.GetRelativePath(relativeTo: _baseDirectory, path: link);
+            return File.Exists(path) || Directory.Exists(path);
+        }
     }
 }
