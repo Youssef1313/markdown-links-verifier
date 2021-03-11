@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace MarkdownLinksVerifier.LinkValidator
 {
@@ -12,6 +13,11 @@ namespace MarkdownLinksVerifier.LinkValidator
         {
             // Consider [text]() as valid. It redirects to the current directory.
             if (string.IsNullOrEmpty(link))
+            {
+                return true;
+            }
+
+            if (link.StartsWith("mailto:", StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
