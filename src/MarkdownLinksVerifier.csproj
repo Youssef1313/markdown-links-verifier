@@ -9,4 +9,8 @@
     <PackageReference Include="Markdig" Version="0.23.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="MarkdownLinksVerifier.UnitTests" />
+  </ItemGroup>
+
 </Project>

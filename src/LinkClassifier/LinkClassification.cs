@@ -10,5 +10,9 @@
         /// Indicates a link to a local file.
         /// </summary>
         Local,
+        /// <summary>
+        /// Indicates a <code>mailto:</code> link, which is considered as always valid.
+        /// </summary>
+        Mailto,
     }
 }
