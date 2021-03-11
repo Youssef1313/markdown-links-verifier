@@ -26,10 +26,11 @@ foreach (string file in Directory.EnumerateFiles(Directory.GetCurrentDirectory()
         ILinkValidator validator = LinkValidatorCreator.Create(classification, directory);
         if (!validator.IsValid(link.Url))
         {
-            Console.Error.WriteLine($"Invalid link: '{link.Url}' relative to '{directory}'.");
+            Console.WriteLine($"::error::Invalid link: '{link.Url}' relative to '{directory}'.");
             hasErrors = true;
         }
     }
+
     Console.WriteLine();
 }
 
