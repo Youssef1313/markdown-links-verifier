@@ -11,7 +11,7 @@
         /// </summary>
         Local,
         /// <summary>
-        /// Indicates a <code>mailto:</code> link, which is considered as always valid.
+        /// Indicates a <code>mailto:</code> link.
         /// </summary>
         Mailto,
     }
