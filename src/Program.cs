@@ -22,7 +22,7 @@ foreach (string file in Directory.EnumerateFiles(Directory.GetCurrentDirectory()
     MarkdownDocument document = Markdown.Parse(await File.ReadAllTextAsync(file));
     foreach (LinkInline link in document.Descendants<LinkInline>())
     {
-        LinkClassification classification = LinkClassifier.Classify(link.Url);
+        LinkClassification classification = Classifier.Classify(link.Url);
         ILinkValidator validator = LinkValidatorCreator.Create(classification, directory);
         if (!validator.IsValid(link.Url))
         {

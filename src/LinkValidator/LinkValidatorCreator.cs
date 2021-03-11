@@ -11,6 +11,7 @@ namespace MarkdownLinksVerifier.LinkValidator
             {
                 LinkClassification.Online => new OnlineLinkValidator(),
                 LinkClassification.Local => new LocalLinkValidator(baseDirectory),
+                LinkClassification.Mailto => new MailtoLinkValidator(),
                 _ => throw new ArgumentException($"Invalid {nameof(classification)}.", nameof(classification))
             };
     }
