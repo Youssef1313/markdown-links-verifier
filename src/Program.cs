@@ -6,12 +6,19 @@ using Markdig.Syntax.Inlines;
 using MarkdownLinksVerifier.LinkClassifier;
 using MarkdownLinksVerifier.LinkValidator;
 
+[assembly:CLSCompliant(true)]
+
 bool hasErrors = false;
 
 foreach (string file in Directory.EnumerateFiles(Directory.GetCurrentDirectory(), "*.md", SearchOption.AllDirectories))
 {
     Console.WriteLine($"Validating links in: {file}.");
-    string directory = Path.GetDirectoryName(file);
+    string? directory = Path.GetDirectoryName(file);
+    if (directory is null)
+    {
+        throw new InvalidOperationException($"Cannot get directory for '{file}'.");
+    }
+
     MarkdownDocument document = Markdown.Parse(await File.ReadAllTextAsync(file));
     foreach (LinkInline link in document.Descendants<LinkInline>())
     {
