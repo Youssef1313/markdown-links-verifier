@@ -1,0 +1,14 @@
+name: Dogfood (current branch)
+on: push
+
+jobs:
+  validate_links:
+    name: Markdown links verifier
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v1
+
+    - name: Validate links
+      uses: ./
