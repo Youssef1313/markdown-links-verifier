@@ -4,7 +4,7 @@ This is an undergoing work to create a GitHub Action for validating links in mar
 
 *Not yet ready for consumption*
 
-[Link](\src\Test.md).
+[Link](/src/Test.md).
 
 ## Get started
 
