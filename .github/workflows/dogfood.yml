@@ -1,5 +1,5 @@
 name: Dogfood
-on: push
+on: [push, pull_request]
 
 jobs:
   validate_links:

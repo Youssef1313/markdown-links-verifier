@@ -10,7 +10,7 @@ To get started, create a *markdown-links-verifier.yml* under *.github/workflows/
 
 ```yml
 name: Markdown links verifier
-on: push
+on: [push, pull_request]
 
 jobs:
   validate_links:
