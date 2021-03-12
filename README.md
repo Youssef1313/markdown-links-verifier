@@ -4,6 +4,8 @@ This is an undergoing work to create a GitHub Action for validating links in mar
 
 *Not yet ready for consumption*
 
+[Link](\src\Test.md).
+
 ## Get started
 
 To get started, create a *markdown-links-verifier.yml* under *.github/workflows/* directory with the following contents:
