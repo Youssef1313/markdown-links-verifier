@@ -30,7 +30,7 @@ namespace MarkdownLinksVerifier.LinkValidator
             if (lastIndex != -1)
                 link = link.Substring(0, lastIndex);
 
-            var path = Path.GetFullPath(Path.Combine(_baseDirectory, link));
+            var path = Path.GetFullPath(Path.Join(_baseDirectory, link));
             return File.Exists(path) || Directory.Exists(path);
         }
     }
