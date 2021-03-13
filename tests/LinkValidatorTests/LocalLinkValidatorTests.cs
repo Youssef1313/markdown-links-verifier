@@ -8,6 +8,9 @@ namespace MarkdownLinksVerifier.UnitTests.LinkValidatorTests
 {
     public class LocalLinkValidatorTests
     {
+        private static async Task<int> WriteResultsAndGetExitCodeAsync(StringWriter writer)
+            => await MarkdownFilesAnalyzer.WriteResultsAsync(writer, $".{Path.DirectorySeparatorChar}WorkspaceTests");
+
         private static void CustomAssert(string expected, string actual)
         {
             try
@@ -37,11 +40,13 @@ Actual:
                 }
             };
 
+            char separator = Path.DirectorySeparatorChar;
+
             var workspacePath = await workspace.InitializeAsync();
             using var writer = new StringWriter();
-            int returnCode = await MarkdownFilesAnalyzer.WriteResultsAsync(writer, "./WorkspaceTests");
+            int returnCode = await WriteResultsAndGetExitCodeAsync(writer);
             Assert.Equal(expected: 0, actual: returnCode);
-            CustomAssert(expected: @"Validating links in: ./WorkspaceTests\README.md.
+            CustomAssert(expected: @$"Validating links in: .{separator}WorkspaceTests{separator}README.md.
 
 ", actual: writer.ToString());
         }

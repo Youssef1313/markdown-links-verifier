@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 namespace MarkdownLinksVerifier.UnitTests.LinkValidatorTests
 {
@@ -7,7 +8,8 @@ namespace MarkdownLinksVerifier.UnitTests.LinkValidatorTests
     {
         private readonly Dictionary<string, string> _files = new();
 
-        public void Add(string path, string contents) => _files.Add(path, contents);
+        public void Add(string path, string contents)
+            => _files.Add(path.Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar), contents);
 
         public IEnumerator<KeyValuePair<string, string>> GetEnumerator() => _files.GetEnumerator();
 
