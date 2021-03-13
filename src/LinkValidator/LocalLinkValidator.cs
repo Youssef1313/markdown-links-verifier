@@ -6,7 +6,6 @@ namespace MarkdownLinksVerifier.LinkValidator
     internal class LocalLinkValidator : ILinkValidator
     {
         private readonly string _baseDirectory;
-        private const char RootSymbol = '~';
 
         public LocalLinkValidator(string baseDirectory) => _baseDirectory = baseDirectory;
 
@@ -21,15 +20,10 @@ namespace MarkdownLinksVerifier.LinkValidator
             link = link.Replace("%20", " ", StringComparison.Ordinal);
             string relativeTo = _baseDirectory;
 
-            if (link.StartsWith(RootSymbol) &&
-                (link[1] is '\\' or '/'))
-            {
-                link = Path.Join(Directory.GetCurrentDirectory(), link[1..]);
-            }
-            else if (link.StartsWith('/'))
+            if (link.StartsWith('/'))
             {
                 // Links that start with / are relative to the repository root.
-                // TODO: Does it work locally? Consider a warning for it.
+                // TODO: Does it work locally (e.g. in VS Code)? Consider a warning for it.
                 relativeTo = Directory.GetCurrentDirectory();
             }
 
