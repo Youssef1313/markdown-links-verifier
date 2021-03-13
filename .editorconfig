@@ -35,6 +35,5 @@ csharp_style_expression_bodied_constructors = when_on_single_line
 # IDE0046: Convert to conditional expression
 dotnet_diagnostic.IDE0046.severity = silent
 
-# IDE0008: Use explicit type
-# TODO: Replace with YAnalyzers
+# IDE0008: Use explicit type - Replaced with YAnalyzers.
 dotnet_diagnostic.IDE0008.severity = none

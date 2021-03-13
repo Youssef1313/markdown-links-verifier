@@ -15,7 +15,7 @@ internal static class MarkdownFilesAnalyzer
 {
     public static async Task<int> WriteResultsAsync(TextWriter writer, string? rootDirectory = null)
     {
-        int returnCode = 0;
+        var returnCode = 0;
         rootDirectory ??= Directory.GetCurrentDirectory();
 
         foreach (string file in Directory.EnumerateFiles(rootDirectory, "*.md", SearchOption.AllDirectories))
