@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using Markdig;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
@@ -8,30 +9,39 @@ using MarkdownLinksVerifier.LinkValidator;
 
 [assembly: CLSCompliant(true)]
 
-bool hasErrors = false;
+return await MarkdownFilesAnalyzer.WriteResultsAsync(Console.Out);
 
-foreach (string file in Directory.EnumerateFiles(Directory.GetCurrentDirectory(), "*.md", SearchOption.AllDirectories))
+internal static class MarkdownFilesAnalyzer
 {
-    Console.WriteLine($"Validating links in: {file}.");
-    string? directory = Path.GetDirectoryName(file);
-    if (directory is null)
+    public static async Task<int> WriteResultsAsync(TextWriter writer, string? rootDirectory = null)
     {
-        throw new InvalidOperationException($"Cannot get directory for '{file}'.");
-    }
+        int returnCode = 0;
+        rootDirectory ??= Directory.GetCurrentDirectory();
 
-    MarkdownDocument document = Markdown.Parse(await File.ReadAllTextAsync(file));
-    foreach (LinkInline link in document.Descendants<LinkInline>())
-    {
-        LinkClassification classification = Classifier.Classify(link.Url);
-        ILinkValidator validator = LinkValidatorCreator.Create(classification, directory);
-        if (!validator.IsValid(link.Url))
+        foreach (string file in Directory.EnumerateFiles(rootDirectory, "*.md", SearchOption.AllDirectories))
         {
-            Console.WriteLine($"::error::Invalid link: '{link.Url}' relative to '{directory}'.");
-            hasErrors = true;
+            writer.WriteLine($"Validating links in: {file}.");
+            string? directory = Path.GetDirectoryName(file);
+            if (directory is null)
+            {
+                throw new InvalidOperationException($"Cannot get directory for '{file}'.");
+            }
+
+            MarkdownDocument document = Markdown.Parse(await File.ReadAllTextAsync(file));
+            foreach (LinkInline link in document.Descendants<LinkInline>())
+            {
+                LinkClassification classification = Classifier.Classify(link.Url);
+                ILinkValidator validator = LinkValidatorCreator.Create(classification, directory);
+                if (!validator.IsValid(link.Url))
+                {
+                    writer.WriteLine($"::error::Invalid link: '{link.Url}' relative to '{directory}'.");
+                    returnCode = 1;
+                }
+            }
+
+            writer.WriteLine();
         }
+
+        return returnCode;
     }
-
-    Console.WriteLine();
 }
-
-return hasErrors ? 1 : 0;

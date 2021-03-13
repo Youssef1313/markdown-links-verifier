@@ -1,10 +1,31 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using Xunit;
+using Xunit.Sdk;
 
 namespace MarkdownLinksVerifier.UnitTests.LinkValidatorTests
 {
     public class LocalLinkValidatorTests
     {
+        private static void CustomAssert(string expected, string actual)
+        {
+            try
+            {
+                Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
+            }
+            catch (Exception)
+            {
+                throw new XunitException($@"
+Expected:
+{expected}
+
+Actual:
+{actual}
+");
+            }
+        }
+
         [Fact]
         public async Task TestMethodAsync()
         {
@@ -17,7 +38,12 @@ namespace MarkdownLinksVerifier.UnitTests.LinkValidatorTests
             };
 
             var workspacePath = await workspace.InitializeAsync();
-            // TODO: Needs a way to get the output from the Console Application and verify it.
+            using var writer = new StringWriter();
+            int returnCode = await MarkdownFilesAnalyzer.WriteResultsAsync(writer, "./WorkspaceTests");
+            Assert.Equal(expected: 0, actual: returnCode);
+            CustomAssert(expected: @"Validating links in: ./WorkspaceTests\README.md.
+
+", actual: writer.ToString());
         }
     }
 }
