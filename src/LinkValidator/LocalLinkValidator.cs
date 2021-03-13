@@ -18,6 +18,8 @@ namespace MarkdownLinksVerifier.LinkValidator
                 return true;
             }
 
+            link = link.Replace("%20", " ", StringComparison.Ordinal);
+
             if (link.StartsWith(RootSymbol) &&
                 (link[1] is '\\' or '/'))
             {
