@@ -1,5 +1,9 @@
 # Changes
 
+## v0.0.7
+
+- Re-fix: Handle paths starting with slash.
+
 ## v0.0.6
 
 - Handle encoded space in links. See [issue #26](https://github.com/Youssef1313/markdown-links-verifier/issues/26) and [PR #45](https://github.com/Youssef1313/markdown-links-verifier/pull/45).

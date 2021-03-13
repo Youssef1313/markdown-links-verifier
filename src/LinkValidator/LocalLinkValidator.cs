@@ -19,11 +19,18 @@ namespace MarkdownLinksVerifier.LinkValidator
             }
 
             link = link.Replace("%20", " ", StringComparison.Ordinal);
+            string relativeTo = _baseDirectory;
 
             if (link.StartsWith(RootSymbol) &&
                 (link[1] is '\\' or '/'))
             {
                 link = Path.Join(Directory.GetCurrentDirectory(), link[1..]);
+            }
+            else if (link.StartsWith('/'))
+            {
+                // Links that start with / are relative to the repository root.
+                // TODO: Does it work locally? Consider a warning for it.
+                relativeTo = Directory.GetCurrentDirectory();
             }
 
             // Temporary workaround for https://github.com/Youssef1313/markdown-links-verifier/issues/20
@@ -34,7 +41,7 @@ namespace MarkdownLinksVerifier.LinkValidator
                 link = link.Substring(0, lastIndex);
             }
 
-            string path = Path.GetFullPath(Path.Join(_baseDirectory, link));
+            string path = Path.GetFullPath(Path.Join(relativeTo, link));
             return File.Exists(path) || Directory.Exists(path);
         }
     }

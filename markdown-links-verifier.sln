@@ -8,8 +8,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FB9E2FB6-DF28-4985-87D6-0334B8260365}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.github\workflows\build.yml = .github\workflows\build.yml
+		CHANGES.md = CHANGES.md
+		.github\workflows\current-branch-dogfood.yml = .github\workflows\current-branch-dogfood.yml
 		Directory.Build.props = Directory.Build.props
+		.github\workflows\dogfood.yml = .github\workflows\dogfood.yml
 		global.json = global.json
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownLinksVerifier.UnitTests", "tests\MarkdownLinksVerifier.UnitTests.csproj", "{D748C61B-652A-4628-8165-EB0EC734975B}"
