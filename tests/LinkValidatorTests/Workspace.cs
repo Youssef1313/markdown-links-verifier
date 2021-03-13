@@ -32,6 +32,8 @@ namespace MarkdownLinksVerifier.UnitTests.LinkValidatorTests
 
             foreach (var (path, contents) in Files)
             {
+                string s = "";
+                _ = s;
                 var filePath = Path.Join(_workspacePath, path);
                 var containingDirectory = Path.GetDirectoryName(filePath);
                 if (containingDirectory is null)

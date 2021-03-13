@@ -1,9 +1,5 @@
 name: Continuous Integration
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+on: [push, pull_request]
 jobs:
   build:
     name: Build
@@ -29,7 +25,7 @@ jobs:
       - name: Validate dependencies
         run: dotnet restore --locked-mode --packages ${{ github.workspace }}/.nuget/packages
       - name: Build
-        run: dotnet msbuild -noLogo -m -p:Configuration=${{ matrix.configuration }} -bl:artifacts/log/build.binlog
+        run: dotnet msbuild -noLogo -m -p:Configuration=${{ matrix.configuration }} -warnaserror -bl:artifacts/log/build.binlog
       - name: Test
         run: dotnet test tests
       - name: Upload Results
