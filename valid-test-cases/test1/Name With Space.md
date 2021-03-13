@@ -2,8 +2,3 @@
 [text](./File1.md)
 [text](/valid-test-cases/test1/File1.md)
 [text](~/valid-test-cases/test1/File1.md)
-[text](Name With Space.md)
-[text](Name%20With%20Space.md)
-[text](folder)
-[text](./folder)
-[text]()
