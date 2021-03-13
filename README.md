@@ -25,4 +25,5 @@ jobs:
 
 ## Thanks
 
-Big thanks to [@jmarolf](https://github.com/jmarolf) for [dotnet-start](https://github.com/jmarolf/dotnet-start) which helped a lot!
+- Big thanks to [@jmarolf](https://github.com/jmarolf) for [dotnet-start](https://github.com/jmarolf/dotnet-start) which helped a lot!
+- Big thanks to [@IEvangelist](https://github.com/IEvangelist) for [versionsweeper](https://github.com/dotnet/versionsweeper/) which helped a lot!
