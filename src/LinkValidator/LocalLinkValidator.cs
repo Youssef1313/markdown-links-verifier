@@ -30,7 +30,7 @@ namespace MarkdownLinksVerifier.LinkValidator
             {
                 // Links that start with / are relative to the repository root.
                 // TODO: Does it work locally? Consider a warning for it.
-                //relativeTo = Directory.GetCurrentDirectory();
+                relativeTo = Directory.GetCurrentDirectory();
             }
 
             // Temporary workaround for https://github.com/Youssef1313/markdown-links-verifier/issues/20
