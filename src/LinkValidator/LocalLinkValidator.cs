@@ -28,11 +28,13 @@ namespace MarkdownLinksVerifier.LinkValidator
 
             // Temporary workaround for https://github.com/Youssef1313/markdown-links-verifier/issues/20
             // TODO: Check for the heading validity.
-            var lastIndex = link.LastIndexOf('#');
+            int lastIndex = link.LastIndexOf('#');
             if (lastIndex != -1)
+            {
                 link = link.Substring(0, lastIndex);
+            }
 
-            var path = Path.GetFullPath(Path.Join(_baseDirectory, link));
+            string path = Path.GetFullPath(Path.Join(_baseDirectory, link));
             return File.Exists(path) || Directory.Exists(path);
         }
     }
