@@ -1,5 +1,11 @@
 # Changes
 
+## v0.0.6
+
+- Handle encoded space in links. See [issue #26](https://github.com/Youssef1313/markdown-links-verifier/issues/26) and [PR #45](https://github.com/Youssef1313/markdown-links-verifier/pull/45).
+- Handle paths starting with slash. See [issue #41](https://github.com/Youssef1313/markdown-links-verifier/issues/41) and [PR #43](https://github.com/Youssef1313/markdown-links-verifier/pull/43).
+- Handle paths starting with tilde. See [PR #38](https://github.com/Youssef1313/markdown-links-verifier/pull/38).
+
 ## v0.0.5
 
 - Verify mailto links. See [issue #35](https://github.com/Youssef1313/markdown-links-verifier/issues/35) and [PR #36](https://github.com/Youssef1313/markdown-links-verifier/pull/36).

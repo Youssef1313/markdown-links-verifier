@@ -2,8 +2,6 @@
 
 This is an undergoing work to create a GitHub Action for validating links in markdown files.
 
-*Not yet ready for consumption*
-
 ## Get started
 
 To get started, create a *markdown-links-verifier.yml* under *.github/workflows/* directory with the following contents:
@@ -22,7 +20,7 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Validate links
-      uses: Youssef1313/markdown-links-verifier@v0.0.5
+      uses: Youssef1313/markdown-links-verifier@v0.0.6
 ```
 
 ## Thanks
