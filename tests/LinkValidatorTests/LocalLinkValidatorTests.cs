@@ -44,7 +44,7 @@ namespace MarkdownLinksVerifier.UnitTests.LinkValidatorTests
 
             char separator = Path.DirectorySeparatorChar;
 
-            var workspacePath = await workspace.InitializeAsync();
+            string workspacePath = await workspace.InitializeAsync();
             using var writer = new StringWriter();
             int returnCode = await WriteResultsAndGetExitCodeAsync(writer);
             var expected = new (string File, string Link, string RelativeTo)[]
