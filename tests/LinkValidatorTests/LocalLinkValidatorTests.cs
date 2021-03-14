@@ -47,7 +47,7 @@ namespace MarkdownLinksVerifier.UnitTests.LinkValidatorTests
             string workspacePath = await workspace.InitializeAsync();
             using var writer = new StringWriter();
             int returnCode = await WriteResultsAndGetExitCodeAsync(writer);
-            var expected = new (string File, string Link, string RelativeTo)[]
+            (string File, string Link, string RelativeTo)[] expected = new[]
             {
                 ($".{separator}WorkspaceTests{separator}README.md", "README-2.md", $".{separator}WorkspaceTests")
             };
