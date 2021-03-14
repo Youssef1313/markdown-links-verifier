@@ -39,7 +39,7 @@ namespace MarkdownLinksVerifier.LinkValidator
             lastIndex = link.LastIndexOf('?');
             if (lastIndex != -1)
             {
-                //link = link.Substring(0, lastIndex);
+                link = link.Substring(0, lastIndex);
             }
 
             string path = Path.GetFullPath(Path.Join(relativeTo, link));
