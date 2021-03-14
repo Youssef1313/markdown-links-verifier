@@ -17,10 +17,10 @@ internal static class MarkdownFilesAnalyzer
     {
         var returnCode = 0;
         rootDirectory ??= Directory.GetCurrentDirectory();
+        await writer.WriteLineAsync($"Starting Markdown Links Verifier in '{rootDirectory}'.");
 
         foreach (string file in Directory.EnumerateFiles(rootDirectory, "*.md", SearchOption.AllDirectories))
         {
-            writer.WriteLine($"Validating links in: {file}.");
             string? directory = Path.GetDirectoryName(file);
             if (directory is null)
             {
@@ -34,12 +34,10 @@ internal static class MarkdownFilesAnalyzer
                 ILinkValidator validator = LinkValidatorCreator.Create(classification, directory);
                 if (!validator.IsValid(link.Url))
                 {
-                    writer.WriteLine($"::error::Invalid link: '{link.Url}' relative to '{directory}'.");
+                    await writer.WriteLineAsync($"::error::In file '{file}': Invalid link: '{link.Url}' relative to '{directory}'.");
                     returnCode = 1;
                 }
             }
-
-            writer.WriteLine();
         }
 
         return returnCode;
