@@ -35,6 +35,13 @@ namespace MarkdownLinksVerifier.LinkValidator
                 link = link.Substring(0, lastIndex);
             }
 
+            // Remove query parameters.
+            lastIndex = link.LastIndexOf('?');
+            if (lastIndex != -1)
+            {
+                link = link.Substring(0, lastIndex);
+            }
+
             string path = Path.GetFullPath(Path.Join(relativeTo, link));
             return File.Exists(path) || Directory.Exists(path);
         }
