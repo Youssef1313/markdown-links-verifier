@@ -17,7 +17,7 @@ internal static class MarkdownFilesAnalyzer
     {
         var returnCode = 0;
         rootDirectory ??= Directory.GetCurrentDirectory();
-        await writer.WriteLineAsync($"Starting Markdown Links Verifier in {rootDirectory}.");
+        await writer.WriteLineAsync($"Starting Markdown Links Verifier in '{rootDirectory}'.");
 
         foreach (string file in Directory.EnumerateFiles(rootDirectory, "*.md", SearchOption.AllDirectories))
         {
