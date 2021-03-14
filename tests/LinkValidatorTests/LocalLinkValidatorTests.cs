@@ -30,13 +30,13 @@ Actual:
         }
 
         [Fact]
-        public async Task TestMethodAsync()
+        public async Task TestSimpleCase_FileDoesNotExist()
         {
             using var workspace = new Workspace
             {
                 Files =
                 {
-                    { "/README.md", "[text](README.md)" }
+                    { "/README.md", "[text](README-2.md)" }
                 }
             };
 
@@ -45,10 +45,10 @@ Actual:
             var workspacePath = await workspace.InitializeAsync();
             using var writer = new StringWriter();
             int returnCode = await WriteResultsAndGetExitCodeAsync(writer);
-            Assert.Equal(expected: 0, actual: returnCode);
-            CustomAssert(expected: @$"Validating links in: .{separator}WorkspaceTests{separator}README.md.
-
+            Assert.Equal<object>(expected: @"Starting Markdown Links Verifier in .\WorkspaceTests.
+::error::In file '.\WorkspaceTests\README.md': Invalid link: 'README-2.md' relative to '.\WorkspaceTests'.
 ", actual: writer.ToString());
+            Assert.Equal(expected: 1, actual: returnCode);
         }
     }
 }
