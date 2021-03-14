@@ -23,6 +23,10 @@ namespace MarkdownLinksVerifier.UnitTests.LinkValidatorTests
 
         public FilesCollection Files { get; } = new();
 
+        /// <summary>
+        /// Initializs the workspace by creating all the requested files with their contents.
+        /// </summary>
+        /// <returns>The path to the workspace folder that contains the requested files.</returns>
         public async Task<string> InitializeAsync()
         {
             if (_initialized)
@@ -30,10 +34,10 @@ namespace MarkdownLinksVerifier.UnitTests.LinkValidatorTests
                 throw new InvalidOperationException("The workspace is already initialized");
             }
 
-            foreach (var (path, contents) in Files)
+            foreach ((string path, string contents) in Files)
             {
-                var filePath = Path.Join(_workspacePath, path);
-                var containingDirectory = Path.GetDirectoryName(filePath);
+                string filePath = Path.Join(_workspacePath, path);
+                string? containingDirectory = Path.GetDirectoryName(filePath);
                 if (containingDirectory is null)
                 {
                     throw new InvalidOperationException($"Containing director for path '{filePath}' is null.");
