@@ -4,16 +4,18 @@ using System.Threading.Tasks;
 using Markdig;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
+using MarkdownLinksVerifier.Configuration;
 using MarkdownLinksVerifier.LinkClassifier;
 using MarkdownLinksVerifier.LinkValidator;
 
 [assembly: CLSCompliant(true)]
 
-return await MarkdownFilesAnalyzer.WriteResultsAsync(Console.Out);
+MarkdownLinksVerifierConfiguration configuration = await ConfigurationReader.GetConfigurationAsync();
+return await MarkdownFilesAnalyzer.WriteResultsAsync(Console.Out, configuration);
 
 internal static class MarkdownFilesAnalyzer
 {
-    public static async Task<int> WriteResultsAsync(TextWriter writer, string? rootDirectory = null)
+    public static async Task<int> WriteResultsAsync(TextWriter writer, MarkdownLinksVerifierConfiguration config, string? rootDirectory = null)
     {
         var returnCode = 0;
         rootDirectory ??= Directory.GetCurrentDirectory();
@@ -32,7 +34,7 @@ internal static class MarkdownFilesAnalyzer
             {
                 LinkClassification classification = Classifier.Classify(link.Url);
                 ILinkValidator validator = LinkValidatorCreator.Create(classification, directory);
-                if (!validator.IsValid(link.Url))
+                if (!config.IsLinkExcluded(link.Url) && !validator.IsValid(link.Url))
                 {
                     await writer.WriteLineAsync($"::error::In file '{file}': Invalid link: '{link.Url}' relative to '{directory}'.");
                     returnCode = 1;
