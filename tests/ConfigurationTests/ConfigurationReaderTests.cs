@@ -27,7 +27,7 @@ namespace MarkdownLinksVerifier.UnitTests.ConfigurationTests
                 MarkdownLinksVerifierConfiguration configuration = await ConfigurationReader.GetConfigurationAsync();
                 Assert.Equal(2, configuration.ExcludeStartingWith.Length);
                 Assert.Contains(@"xref:", configuration.ExcludeStartingWith, StringComparer.Ordinal);
-                Assert.Contains("~/", configuration.ExcludeStartingWith);
+                Assert.Contains("~/", configuration.ExcludeStartingWith, StringComparer.Ordinal);
             }
             finally
             {
