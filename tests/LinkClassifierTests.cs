@@ -1,8 +1,5 @@
-using System;
 using MarkdownLinksVerifier.LinkClassifier;
 using Xunit;
-
-[assembly: CLSCompliant(true)]
 
 namespace MarkdownLinksVerifier.UnitTests
 {

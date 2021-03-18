@@ -7,8 +7,8 @@ namespace MarkdownLinksVerifier.Configuration
 {
     internal static class ConfigurationReader
     {
-        private const string ConfigurationFileName = "markdown-links-verifier-config.json";
         private static readonly JsonSerializerOptions s_options = new() { AllowTrailingCommas = true };
+        internal const string ConfigurationFileName = "markdown-links-verifier-config.json";
 
         public static async Task<MarkdownLinksVerifierConfiguration> GetConfigurationAsync()
         {
