@@ -12,6 +12,7 @@ namespace MarkdownLinksVerifier.Configuration
     {
         public static readonly MarkdownLinksVerifierConfiguration Empty = new(default(ImmutableArray<string>));
 
-        public bool IsLinkExcluded(string link) => ExcludeStartingWith.Any(excludedPrefix => link.StartsWith(excludedPrefix, StringComparison.Ordinal));
+        public bool IsLinkExcluded(string link)
+            => !ExcludeStartingWith.IsDefaultOrEmpty && ExcludeStartingWith.Any(excludedPrefix => link.StartsWith(excludedPrefix, StringComparison.Ordinal));
     }
 }
