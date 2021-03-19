@@ -1,5 +1,11 @@
 # Changes
 
+## v0.0.8
+
+- More compact output to reduce noise. See [PR #58](https://github.com/Youssef1313/markdown-links-verifier/pull/58).
+- Handle query parameters. See [issue #55](https://github.com/Youssef1313/markdown-links-verifier/issues/55) and [PR #60](https://github.com/Youssef1313/markdown-links-verifier/pull/60).
+- Add configuration file support. See [issue #63](https://github.com/Youssef1313/markdown-links-verifier/issues/63) and [PR #64](https://github.com/Youssef1313/markdown-links-verifier/pull/64).
+
 ## v0.0.7
 
 - Re-fix: Handle paths starting with slash.

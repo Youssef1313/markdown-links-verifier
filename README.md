@@ -20,7 +20,7 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Validate links
-      uses: Youssef1313/markdown-links-verifier@v0.0.7
+      uses: Youssef1313/markdown-links-verifier@v0.0.8
 ```
 
 ## Thanks
