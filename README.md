@@ -1,6 +1,8 @@
 # Markdown Links Verifier
 
-This is an undergoing work to create a GitHub Action for validating links in markdown files.
+Markdown Links Verifier is an GitHub Action that helps keeping links in Markdown files in a good state.
+
+For version history, see [CHANGES.md](CHANGES.md).
 
 ## Get started
 
@@ -20,7 +22,7 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Validate links
-      uses: Youssef1313/markdown-links-verifier@v0.0.8
+      uses: Youssef1313/markdown-links-verifier@v0.0.9
 ```
 
 ## Thanks
