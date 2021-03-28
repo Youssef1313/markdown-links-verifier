@@ -7,7 +7,8 @@ namespace MarkdownLinksVerifier.LinkClassifier
         public static LinkClassification Classify(string link)
         {
             if (link.StartsWith("https://", StringComparison.OrdinalIgnoreCase) ||
-                link.StartsWith("http://", StringComparison.OrdinalIgnoreCase))
+                link.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
+                link.StartsWith("ftp://", StringComparison.OrdinalIgnoreCase))
             {
                 return LinkClassification.Online;
             }
