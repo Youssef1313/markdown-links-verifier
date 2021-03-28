@@ -1,5 +1,9 @@
 # Changes
 
+## v0.0.9
+
+- Don't classify FTP as local. See [issue #67](https://github.com/Youssef1313/markdown-links-verifier/issues/67) and [PR #68](https://github.com/Youssef1313/markdown-links-verifier/pull/68).
+
 ## v0.0.8
 
 - More compact output to reduce noise. See [PR #58](https://github.com/Youssef1313/markdown-links-verifier/pull/58).
