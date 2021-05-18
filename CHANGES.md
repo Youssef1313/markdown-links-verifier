@@ -1,5 +1,9 @@
 # Changes
 
+## v0.1.1
+
+- Fix the feature introduced in v0.1.0. See [PR #73](https://github.com/Youssef1313/markdown-links-verifier/pull/73).
+
 ## v0.1.0
 
 - Validate heading links. See [PR #71](https://github.com/Youssef1313/markdown-links-verifier/pull/71).
