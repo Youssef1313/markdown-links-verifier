@@ -8,7 +8,7 @@ namespace MarkdownLinksVerifier.LinkValidator
     {
         private static readonly EmailAddressAttribute emailAddressAttribute = new();
 
-        public bool IsValid(string link)
+        public bool IsValid(string link, string filePath)
         {
             Debug.Assert(link.StartsWith("mailto:", StringComparison.OrdinalIgnoreCase));
             return emailAddressAttribute.IsValid(link["mailto:".Length..]);

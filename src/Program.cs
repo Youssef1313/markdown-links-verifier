@@ -34,7 +34,7 @@ internal static class MarkdownFilesAnalyzer
             {
                 LinkClassification classification = Classifier.Classify(link.Url);
                 ILinkValidator validator = LinkValidatorCreator.Create(classification, directory);
-                if (!config.IsLinkExcluded(link.Url) && !validator.IsValid(link.Url))
+                if (!config.IsLinkExcluded(link.Url) && !validator.IsValid(link.Url, file))
                 {
                     await writer.WriteLineAsync($"::error::In file '{file}': Invalid link: '{link.Url}' relative to '{directory}'.");
                     returnCode = 1;

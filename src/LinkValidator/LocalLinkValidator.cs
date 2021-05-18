@@ -1,5 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using Markdig;
+using Markdig.Extensions.AutoIdentifiers;
+using Markdig.Renderers.Html;
+using Markdig.Syntax;
 
 namespace MarkdownLinksVerifier.LinkValidator
 {
@@ -9,12 +14,17 @@ namespace MarkdownLinksVerifier.LinkValidator
 
         public LocalLinkValidator(string baseDirectory) => _baseDirectory = baseDirectory;
 
-        public bool IsValid(string link)
+        public bool IsValid(string link, string filePath)
         {
             // Consider [text]() as valid. It redirects to the current directory.
             if (string.IsNullOrEmpty(link))
             {
                 return true;
+            }
+
+            if (link.StartsWith('#'))
+            {
+                return IsHeadingValid(filePath, link[1..]);
             }
 
             link = link.Replace("%20", " ", StringComparison.Ordinal);
@@ -27,11 +37,13 @@ namespace MarkdownLinksVerifier.LinkValidator
                 relativeTo = Directory.GetCurrentDirectory();
             }
 
-            // Temporary workaround for https://github.com/Youssef1313/markdown-links-verifier/issues/20
-            // TODO: Check for the heading validity.
+            string? headingIdWithoutHash = null;
             int lastIndex = link.LastIndexOf('#');
             if (lastIndex != -1)
             {
+                // TODO: Add a warning if headingIdWithoutHash is empty here?
+                // e.g: [Text](file.md#)
+                headingIdWithoutHash = link[(lastIndex + 1)..];
                 link = link.Substring(0, lastIndex);
             }
 
@@ -43,7 +55,21 @@ namespace MarkdownLinksVerifier.LinkValidator
             }
 
             string path = Path.GetFullPath(Path.Join(relativeTo, link));
-            return File.Exists(path) || Directory.Exists(path);
+            if (headingIdWithoutHash is null)
+            {
+                return File.Exists(path) || Directory.Exists(path);
+            }
+            else
+            {
+                return File.Exists(path) && IsHeadingValid(path, headingIdWithoutHash);
+            }
+        }
+
+        private static bool IsHeadingValid(string path, string headingIdWithoutHash)
+        {
+            MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAutoIdentifiers(AutoIdentifierOptions.Default).Build(); // TODO: Is AutoIdentifierOptions.Default the correct value to use?
+            MarkdownDocument document = Markdown.Parse(File.ReadAllText(path), pipeline);
+            return document.Descendants<HeadingBlock>().Any(heading => headingIdWithoutHash == heading.GetAttributes().Id);
         }
     }
 }
