@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MarkdownLinksVerifier.LinkClassifier;
 
 namespace MarkdownLinksVerifier.LinkValidator
-{ 
+{
     internal static class LinkValidatorCreator
     {
         private static readonly OnlineLinkValidator s_onlineValidator = new();
