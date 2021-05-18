@@ -92,6 +92,27 @@ namespace MarkdownLinksVerifier.UnitTests.LinkValidatorTests
         }
 
         [Fact]
+        public async Task TestValidHeadingIdInAnotherFile_ComplexHeading()
+        {
+            using var workspace = new Workspace
+            {
+                Files =
+                {
+                    { "/README.md", "[text](README2.md#1-scope)" },
+                    { "/README2.md", "### 1 Scope" }
+                }
+            };
+
+            char separator = Path.DirectorySeparatorChar;
+
+            string workspacePath = await workspace.InitializeAsync();
+            using var writer = new StringWriter();
+            int returnCode = await WriteResultsAndGetExitCodeAsync(writer);
+            VerifyNoErrors(writer.ToString().Split(writer.NewLine));
+            Assert.Equal(expected: 0, actual: returnCode);
+        }
+
+        [Fact]
         public async Task TestValidHeadingIdInSameFile()
         {
             using var workspace = new Workspace
