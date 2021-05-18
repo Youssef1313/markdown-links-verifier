@@ -1,5 +1,9 @@
 # Changes
 
+## v0.1.0
+
+- Validate link headings. See [PR #71](https://github.com/Youssef1313/markdown-links-verifier/pull/71).
+
 ## v0.0.9
 
 - Don't classify FTP as local. See [issue #67](https://github.com/Youssef1313/markdown-links-verifier/issues/67) and [PR #68](https://github.com/Youssef1313/markdown-links-verifier/pull/68).
