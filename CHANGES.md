@@ -2,7 +2,7 @@
 
 ## v0.1.0
 
-- Validate link headings. See [PR #71](https://github.com/Youssef1313/markdown-links-verifier/pull/71).
+- Validate heading links. See [PR #71](https://github.com/Youssef1313/markdown-links-verifier/pull/71).
 
 ## v0.0.9
 
