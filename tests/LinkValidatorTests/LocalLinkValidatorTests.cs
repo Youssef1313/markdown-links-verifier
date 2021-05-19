@@ -191,5 +191,27 @@ Hello world.
             Verify(writer.ToString().Split(writer.NewLine), expected);
             Assert.Equal(expected: 1, actual: returnCode);
         }
+
+        [Fact]
+        public async Task TestHeadingReferenceToNonMarkdownFile()
+        {
+            using var workspace = new Workspace
+            {
+                Files =
+                {
+                    { "/README.md", "[text](Program.cs#Snippet1)" },
+                    { "/Program.cs", "class Program {}" },
+                }
+            };
+
+            char separator = Path.DirectorySeparatorChar;
+
+            string workspacePath = await workspace.InitializeAsync();
+            using var writer = new StringWriter();
+            int returnCode = await WriteResultsAndGetExitCodeAsync(writer);
+
+            VerifyNoErrors(writer.ToString().Split(writer.NewLine));
+            Assert.Equal(expected: 0, actual: returnCode);
+        }
     }
 }
