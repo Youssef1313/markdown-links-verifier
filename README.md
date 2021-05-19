@@ -2,7 +2,7 @@
 
 Markdown Links Verifier is an GitHub Action that helps keeping links in Markdown files in a good state.
 
-For version history, see [CHANGES.md](CHANGES.md).
+For version history, see [CHANGES.md](CHANGES0.md).
 
 ## Get started
 
