@@ -67,6 +67,11 @@ namespace MarkdownLinksVerifier.LinkValidator
 
         private static bool IsHeadingValid(string path, string headingIdWithoutHash)
         {
+            if (!path.EndsWith(".md", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
             MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAutoIdentifiers(AutoIdentifierOptions.GitHub).Build(); // TODO: Is AutoIdentifierOptions.GitHub the correct value to use?
             MarkdownDocument document = Markdown.Parse(File.ReadAllText(path), pipeline);
             return document.Descendants<HeadingBlock>().Any(heading => headingIdWithoutHash == heading.GetAttributes().Id);
