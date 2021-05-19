@@ -1,5 +1,9 @@
 # Changes
 
+## v0.1.2
+
+- Validate headings of only markdown files. See [issue #75](https://github.com/Youssef1313/markdown-links-verifier/issues/75) and [PR #76](https://github.com/Youssef1313/markdown-links-verifier/pull/76).
+
 ## v0.1.1
 
 - Fix the feature introduced in v0.1.0. See [PR #73](https://github.com/Youssef1313/markdown-links-verifier/pull/73).
