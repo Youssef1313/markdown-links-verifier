@@ -10,7 +10,7 @@ jobs:
     - name: Checkout the repository
       uses: actions/checkout@v1
       with:
-        name: dotnet/docs
+        repository: dotnet/docs
 
     - name: Validate links
       uses: Youssef1313/markdown-links-verifier@v0.1.2
