@@ -9,9 +9,9 @@ jobs:
     steps:
     - name: Checkout the repository
       uses: actions/checkout@v2
-#      with:
-#        repository: dotnet/docs
-#        ref: main
+      with:
+        repository: dotnet/docs
+        ref: main
 
     - name: Validate links
       uses: Youssef1313/markdown-links-verifier@main
