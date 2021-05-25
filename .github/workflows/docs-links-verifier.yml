@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
       with:
         repository: dotnet/docs
         ref: main
