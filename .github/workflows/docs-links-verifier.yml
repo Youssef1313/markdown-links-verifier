@@ -14,4 +14,4 @@ jobs:
 #        ref: main
 
     - name: Validate links
-      uses: Youssef1313/markdown-links-verifier@v0.1.2
+      uses: Youssef1313/markdown-links-verifier@main
