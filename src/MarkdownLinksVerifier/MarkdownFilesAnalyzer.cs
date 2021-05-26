@@ -8,8 +8,6 @@ using MarkdownLinksVerifier.Configuration;
 using MarkdownLinksVerifier.LinkClassifier;
 using MarkdownLinksVerifier.LinkValidator;
 
-[assembly: CLSCompliant(true)]
-
 internal static class MarkdownFilesAnalyzer
 {
     public static async Task<int> WriteResultsAsync(TextWriter writer, MarkdownLinksVerifierConfiguration config, string? rootDirectory = null)
