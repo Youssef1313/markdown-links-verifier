@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\MarkdownLinksVerifier.csproj" />
+    <ProjectReference Include="..\..\src\MarkdownLinksVerifier\MarkdownLinksVerifier.csproj" />
   </ItemGroup>
 
 </Project>
