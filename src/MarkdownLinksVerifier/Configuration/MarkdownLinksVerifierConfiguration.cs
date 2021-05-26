@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace MarkdownLinksVerifier.Configuration
 {
-    internal record MarkdownLinksVerifierConfiguration(
+    public record MarkdownLinksVerifierConfiguration(
         [property: JsonPropertyName("excludeStartingWith")]
         ImmutableArray<string> ExcludeStartingWith
         )

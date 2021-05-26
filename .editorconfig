@@ -39,3 +39,6 @@ dotnet_diagnostic.IDE0046.severity = silent
 
 # IDE0008: Use explicit type - Replaced with YAnalyzers.
 dotnet_diagnostic.IDE0008.severity = none
+
+# CA1014: Mark assemblies with CLSCompliant
+dotnet_diagnostic.CA1014.severity = none

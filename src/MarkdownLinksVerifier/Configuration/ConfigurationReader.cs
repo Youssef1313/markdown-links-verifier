@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MarkdownLinksVerifier.Configuration
 {
-    internal static class ConfigurationReader
+    public static class ConfigurationReader
     {
         private static readonly JsonSerializerOptions s_options = new() { AllowTrailingCommas = true };
         internal const string ConfigurationFileName = "markdown-links-verifier-config.json";
