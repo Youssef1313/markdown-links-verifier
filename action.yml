@@ -1,5 +1,5 @@
-name: Markdown links verifier
-description: Verify links in your markdown files
+name: MSDocs Build Verifier
+description: Various checks for MSDocs repositories
 
 runs:
   using: docker
