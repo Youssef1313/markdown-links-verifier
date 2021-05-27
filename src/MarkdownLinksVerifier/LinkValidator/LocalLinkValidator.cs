@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Markdig;
 using Markdig.Extensions.AutoIdentifiers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax;
+using Markdig.Syntax.Inlines;
 
 namespace MarkdownLinksVerifier.LinkValidator
 {
@@ -74,7 +76,14 @@ namespace MarkdownLinksVerifier.LinkValidator
 
             MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAutoIdentifiers(AutoIdentifierOptions.GitHub).Build(); // TODO: Is AutoIdentifierOptions.GitHub the correct value to use?
             MarkdownDocument document = Markdown.Parse(File.ReadAllText(path), pipeline);
-            return document.Descendants<HeadingBlock>().Any(heading => headingIdWithoutHash == heading.GetAttributes().Id);
+            return document.Descendants<HeadingBlock>().Any(heading => headingIdWithoutHash == heading.GetAttributes().Id) ||
+                document.Descendants<HtmlInline>().Any(html => IsValidHtml(html.Tag, headingIdWithoutHash));
+
+            // Hacky approach!
+            static bool IsValidHtml(string tag, string headingIdWithoutHawsh)
+            {
+                return Regex.Match(tag, @"^<a\s+?(name|id)\s*?=\s*?""(.+?)""").Groups[2].Value == headingIdWithoutHawsh;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using MarkdownLinksVerifier.Configuration;
 using Xunit;
@@ -12,7 +13,7 @@ namespace MarkdownLinksVerifier.UnitTests.LinkValidatorTests
 
         private static void Verify(string[] actual, (string File, string Link, string RelativeTo)[] expected)
         {
-            Assert.True(actual.Length > 2, $"The actual output is expected to have at least two lines. Found {actual.Length} lines.");
+            Assert.True(actual.Length > 2, $"The actual output is expected to have at least two lines. Found {actual.Length} lines:\r\n" + string.Join(Environment.NewLine, actual));
 
             char separator = Path.DirectorySeparatorChar;
             // The first line is always expected to be that.
@@ -185,7 +186,7 @@ Hello world.
             using var writer = new StringWriter();
             int returnCode = await WriteResultsAndGetExitCodeAsync(writer);
             (string File, string Link, string RelativeTo)[] expected = new[]
-{
+            {
                 ($".{separator}WorkspaceTests{separator}README.md", "#Heading1", $".{separator}WorkspaceTests")
             };
             Verify(writer.ToString().Split(writer.NewLine), expected);
@@ -212,6 +213,85 @@ Hello world.
 
             VerifyNoErrors(writer.ToString().Split(writer.NewLine));
             Assert.Equal(expected: 0, actual: returnCode);
+        }
+
+        [Fact]
+        public async Task TestHeadingReferenceUsingAnchorTag_Id()
+        {
+            using var workspace = new Workspace
+            {
+                Files =
+                {
+                    { "/README.md", @"<a id=""my_anchor""/> ## Heading1
+
+Hello world.
+
+## Heading 2
+[text](#my_anchor)" },
+                }
+            };
+
+            char separator = Path.DirectorySeparatorChar;
+
+            string workspacePath = await workspace.InitializeAsync();
+            using var writer = new StringWriter();
+            int returnCode = await WriteResultsAndGetExitCodeAsync(writer);
+            VerifyNoErrors(writer.ToString().Split(writer.NewLine));
+            Assert.Equal(expected: 0, actual: returnCode);
+        }
+
+        [Fact]
+        public async Task TestHeadingReferenceUsingAnchorTag_Name()
+        {
+            using var workspace = new Workspace
+            {
+                Files =
+                {
+                    { "/README.md", @"<a name=""my_anchor""/> ## Heading1
+
+Hello world.
+
+## Heading 2
+[text](#my_anchor)" },
+                }
+            };
+
+            char separator = Path.DirectorySeparatorChar;
+
+            string workspacePath = await workspace.InitializeAsync();
+            using var writer = new StringWriter();
+            int returnCode = await WriteResultsAndGetExitCodeAsync(writer);
+            VerifyNoErrors(writer.ToString().Split(writer.NewLine));
+            Assert.Equal(expected: 0, actual: returnCode);
+        }
+
+        [Fact]
+        public async Task TestHeadingReferenceUsingAnchorTag_Invalid()
+        {
+            using var workspace = new Workspace
+            {
+                Files =
+                {
+                    { "/README.md", @"<a name=""my_anchor2""/> ## Heading1
+
+Hello world.
+
+## Heading 2
+[text](#my_anchor)" },
+                }
+            };
+
+            char separator = Path.DirectorySeparatorChar;
+
+            string workspacePath = await workspace.InitializeAsync();
+            using var writer = new StringWriter();
+            int returnCode = await WriteResultsAndGetExitCodeAsync(writer);
+            (string File, string Link, string RelativeTo)[] expected = new[]
+{
+                ($".{separator}WorkspaceTests{separator}README.md", "#my_anchor", $".{separator}WorkspaceTests")
+            };
+            Verify(writer.ToString().Split(writer.NewLine), expected);
+            Assert.Equal(expected: 1, actual: returnCode);
         }
     }
 }
