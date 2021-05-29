@@ -274,11 +274,17 @@ Hello world.
                 {
                     { "/README.md", @"
 .NET Framework 4.7.1 includes new features in the following areas:
+
 - [Networking](#net471)
+
 #### Common language runtime (CLR)
+
 **Garbage collection performance improvements**
+
 <a name=""net471""/>
+
 #### Networking
+
 **SHA-2 support for Message.HashAlgorithm **
 " },
                 }
