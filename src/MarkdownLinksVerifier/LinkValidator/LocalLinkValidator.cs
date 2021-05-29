@@ -30,14 +30,7 @@ namespace MarkdownLinksVerifier.LinkValidator
             }
 
             link = link.Replace("%20", " ", StringComparison.Ordinal);
-            string relativeTo = _baseDirectory;
-
-            if (link.StartsWith('/'))
-            {
-                // Links that start with / are relative to the repository root.
-                // TODO: Does it work locally (e.g. in VS Code)? Consider a warning for it.
-                relativeTo = Directory.GetCurrentDirectory();
-            }
+            link = AdjustLinkPath(link, _baseDirectory);
 
             string? headingIdWithoutHash = null;
             int lastIndex = link.LastIndexOf('#');
@@ -56,15 +49,26 @@ namespace MarkdownLinksVerifier.LinkValidator
                 link = link.Substring(0, lastIndex);
             }
 
-            string path = Path.GetFullPath(Path.Join(relativeTo, link));
             if (headingIdWithoutHash is null)
             {
-                return File.Exists(path) || Directory.Exists(path);
+                return File.Exists(link) || Directory.Exists(link);
             }
             else
             {
-                return File.Exists(path) && IsHeadingValid(path, headingIdWithoutHash);
+                return File.Exists(link) && IsHeadingValid(link, headingIdWithoutHash);
             }
+        }
+        private static string AdjustLinkPath(string link, string baseDirectory)
+        {
+            string relativeTo = baseDirectory;
+            if (link.StartsWith('/'))
+            {
+                // Links that start with / are relative to the repository root.
+                // TODO: Does it work locally (e.g. in VS Code)? Consider a warning for it.
+                relativeTo = Directory.GetCurrentDirectory();
+            }
+
+            return Path.GetFullPath(Path.Join(relativeTo, link));
         }
 
         private static bool IsHeadingValid(string path, string headingIdWithoutHash)
@@ -77,12 +81,13 @@ namespace MarkdownLinksVerifier.LinkValidator
             MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAutoIdentifiers(AutoIdentifierOptions.GitHub).Build(); // TODO: Is AutoIdentifierOptions.GitHub the correct value to use?
             MarkdownDocument document = Markdown.Parse(File.ReadAllText(path), pipeline);
             return document.Descendants<HeadingBlock>().Any(heading => headingIdWithoutHash == heading.GetAttributes().Id) ||
-                document.Descendants<HtmlInline>().Any(html => IsValidHtml(html.Tag, headingIdWithoutHash));
+                document.Descendants<HtmlInline>().Any(html => IsValidHtml(html.Tag, headingIdWithoutHash)) ||
+                document.Descendants<HtmlBlock>().Any(block => block.Lines.Lines.Any(line => IsValidHtml(line.Slice.ToString(), headingIdWithoutHash)));
 
             // Hacky approach!
             static bool IsValidHtml(string tag, string headingIdWithoutHawsh)
             {
-                return Regex.Match(tag, @"^<a\s+?(name|id)\s*?=\s*?""(.+?)""").Groups[2].Value == headingIdWithoutHawsh;
+                return Regex.Match(tag, @"^<(a|span)\s+?(name|id)\s*?=\s*?""(.+?)""").Groups[3].Value == headingIdWithoutHawsh;
             }
         }
     }
