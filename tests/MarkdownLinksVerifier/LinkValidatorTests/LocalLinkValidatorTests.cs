@@ -266,6 +266,34 @@ Hello world.
         }
 
         [Fact]
+        public async Task TestHeadingReferenceUsingAnchorTag_Block()
+        {
+            using var workspace = new Workspace
+            {
+                Files =
+                {
+                    { "/README.md", @"
+.NET Framework 4.7.1 includes new features in the following areas:
+- [Networking](#net471)
+#### Common language runtime (CLR)
+**Garbage collection performance improvements**
+<a name=""net471""/>
+#### Networking
+**SHA-2 support for Message.HashAlgorithm **
+" },
+                }
+            };
+
+            char separator = Path.DirectorySeparatorChar;
+
+            string workspacePath = await workspace.InitializeAsync();
+            using var writer = new StringWriter();
+            int returnCode = await WriteResultsAndGetExitCodeAsync(writer);
+            VerifyNoErrors(writer.ToString().Split(writer.NewLine));
+            Assert.Equal(expected: 0, actual: returnCode);
+        }
+
+        [Fact]
         public async Task TestHeadingReferenceUsingAnchorTag_Invalid()
         {
             using var workspace = new Workspace
